@@ -3,117 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AInvoice - Premium Locum Invoicing Hub</title>
+    <title>AInvoice — Premium Locum Hub</title>
+    <!-- Premium Google Fonts Engine -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,500;0,700;0,800;1,600&display=swap" rel="stylesheet">
     <!-- Tailwind CSS Engine -->
     <script src="https://tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Premium custom scrollbar styling for slick layout scroll controls */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(241, 245, 249, 1); }
-        ::-webkit-scrollbar-thumb { background: rgba(203, 213, 225, 1); border-radius: 9999px; }
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
         
         @media print { 
             .no-print { display: none !important; } 
             body { background: white !important; color: #0f172a !important; padding: 0 !important; }
             .print-card { box-shadow: none !important; border: none !important; background: transparent !important; padding: 0 !important; }
-            .print-clean-input { border: none !important; background: transparent !important; padding-left: 0 !important; padding-right: 0 !important; width: 100% !important; }
+            .print-clean-input { border: none !important; background: transparent !important; padding: 0 !important; color: #0f172a !important; }
         }
     </style>
 </head>
-<body class="bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-950 min-h-screen text-slate-100 font-sans selection:bg-indigo-500/30 antialiased pb-12">
+<body class="bg-[#090a0f] min-h-screen text-slate-200 selection:bg-violet-500/30 antialiased pb-16">
 
-    <!-- Premium Dashboard Wrapper Shell Layout -->
-    <div id="appContainer" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <!-- Subtle Premium Background Glow Overlays -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-gradient-to-b from-violet-600/10 via-indigo-600/5 to-transparent pointer-events-none blur-[120px]"></div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 relative z-10">
         
-        <!-- Header Landing Bar Module -->
-        <header class="no-print flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 bg-slate-900/60 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 shadow-xl">
+        <!-- Header Brand Navigation -->
+        <header class="no-print flex flex-col sm:flex-row items-center justify-between gap-4 mb-10 bg-[#11131e]/60 border border-white/[0.04] rounded-2xl p-4 shadow-2xl backdrop-blur-xl">
             <div class="flex items-center gap-3">
-                <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                    <span class="font-black text-xl tracking-tighter text-white">A</span>
+                <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/20">
+                    <span class="font-display font-extrabold text-lg tracking-tighter text-white">A</span>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">AInvoice</h1>
-                    <p class="text-xs text-slate-400 font-medium tracking-wide">Intelligent Pharmacy Locum Hub</p>
+                    <h1 class="text-lg font-display font-bold tracking-tight text-white">AInvoice</h1>
+                    <p class="text-[10px] text-slate-400 font-semibold tracking-widest uppercase">Pharmacy Locum Suite</p>
                 </div>
             </div>
             
-            <!-- Dashboard Quick Menus Segment Toggle Buttons -->
-            <nav class="flex items-center bg-slate-950/60 p-1.5 rounded-xl border border-slate-800/60">
-                <button onclick="switchTab('generator')" id="tab-generator" class="px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 bg-indigo-600 text-white shadow-md">
+            <nav class="flex items-center bg-black/40 p-1 rounded-xl border border-white/[0.04]">
+                <button onclick="switchTab('generator')" id="tab-generator" class="px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 bg-white text-black shadow-md">
                     ⚡ Fast Invoice
                 </button>
-                <button onclick="switchTab('profile')" id="tab-profile" class="px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 text-slate-400 hover:text-slate-200">
+                <button onclick="switchTab('profile')" id="tab-profile" class="px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 text-slate-400 hover:text-slate-200">
                     ⚙️ Settings & Bank
                 </button>
             </nav>
 
-            <button onclick="window.print()" class="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold text-xs tracking-wider uppercase py-3 px-6 rounded-xl shadow-lg shadow-indigo-500/10 active:scale-[0.98] transition-all">
-                Export Secure PDF
+            <button onclick="window.print()" class="w-full sm:w-auto bg-gradient-to-r from-violet-500 to-indigo-600 hover:from-violet-600 hover:to-indigo-700 text-white font-semibold text-xs tracking-wider uppercase py-3 px-6 rounded-xl shadow-lg shadow-violet-500/20 active:scale-[0.98] transition-all">
+                Export Statement
             </button>
         </header>
 
-        <!-- MAIN INTERACTIVE APP PANELS -->
         <main class="grid grid-cols-1 gap-6">
 
-            <!-- PANEL 1: PROFILE MANAGEMENT & CONFIG SETTINGS HUB -->
-            <section id="panel-profile" class="no-print hidden bg-slate-900/40 border border-slate-800/60 rounded-3xl p-6 shadow-2xl backdrop-blur-sm space-y-6">
+            <!-- CONFIGURATION PANEL (Settings Hub) -->
+            <section id="panel-profile" class="no-print hidden bg-[#11131e]/40 border border-white/[0.04] rounded-3xl p-6 shadow-2xl backdrop-blur-xl space-y-6">
                 <div>
-                    <h2 class="text-lg font-bold text-white mb-1">⚙️ Locum Setup & Configuration</h2>
-                    <p class="text-xs text-slate-400">Your configuration profiles are saved instantly in local storage.</p>
+                    <h2 class="text-base font-display font-bold text-white tracking-tight">⚙️ Locum Setup & Configuration</h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Your parameters load dynamically into the statement viewport on modification.</p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Locum Information Block -->
-                    <div class="bg-slate-950/40 border border-slate-800/40 p-5 rounded-2xl space-y-4">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-400">Professional Identity</h3>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Your Full Name</label>
-                            <input type="text" id="cfg-name" placeholder="John Doe MRPharmS" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all">
+                    <div class="bg-black/20 border border-white/[0.02] p-5 rounded-2xl space-y-4">
+                        <h3 class="text-[10px] font-bold uppercase tracking-widest text-violet-400 font-display">Professional Identity</h3>
+                        <div class="space-y-1.5">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Your Full Name</label>
+                            <input type="text" id="cfg-name" placeholder="John Doe MRPharmS" class="w-full bg-[#161926]/50 border border-white/[0.05] rounded-xl px-4 py-2.5 text-sm focus:border-violet-500 outline-none transition-all text-white">
                         </div>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">GPhC Number</label>
-                            <input type="text" id="cfg-gphc" placeholder="e.g. 2012345" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all font-mono">
+                        <div class="space-y-1.5">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">GPhC Registration Number</label>
+                            <input type="text" id="cfg-gphc" placeholder="e.g. 2012345" class="w-full bg-[#161926]/50 border border-white/[0.05] rounded-xl px-4 py-2.5 text-sm focus:border-violet-500 outline-none transition-all font-mono text-white">
                         </div>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Your Business Address</label>
-                            <textarea id="cfg-address" rows="2" placeholder="Street Address, City, Postcode" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:border-indigo-500 outline-none transition-all resize-none"></textarea>
+                        <div class="space-y-1.5">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Your Business Address</label>
+                            <textarea id="cfg-address" rows="2" placeholder="Street Address, Postcode" class="w-full bg-[#161926]/50 border border-white/[0.05] rounded-xl px-4 py-2 text-sm focus:border-violet-500 outline-none transition-all resize-none text-white"></textarea>
                         </div>
                     </div>
 
-                    <!-- Financial & Remittance Remit -->
-                    <div class="bg-slate-950/40 border border-slate-800/40 p-5 rounded-2xl space-y-4">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-purple-400">Bank Remittance Accounts</h3>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Bank Name</label>
-                            <input type="text" id="cfg-bank" placeholder="e.g. HSBC Bank UK" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all">
+                    <div class="bg-black/20 border border-white/[0.02] p-5 rounded-2xl space-y-4">
+                        <h3 class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 font-display">Bank Remittance Accounts</h3>
+                        <div class="space-y-1.5">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Bank Name</label>
+                            <input type="text" id="cfg-bank" placeholder="e.g. Barclays Bank" class="w-full bg-[#161926]/50 border border-white/[0.05] rounded-xl px-4 py-2.5 text-sm focus:border-violet-500 outline-none transition-all text-white">
                         </div>
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="space-y-1">
-                                <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Account Number</label>
-                                <input type="text" id="cfg-acc" placeholder="8 digits" maxlength="8" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all font-mono">
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Account Number</label>
+                                <input type="text" id="cfg-acc" placeholder="8 digits" maxlength="8" class="w-full bg-[#161926]/50 border border-white/[0.05] rounded-xl px-4 py-2.5 text-sm focus:border-violet-500 outline-none transition-all font-mono text-white">
                             </div>
-                            <div class="space-y-1">
-                                <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Sort Code</label>
-                                <input type="text" id="cfg-sort" placeholder="00-00-00" maxlength="8" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all font-mono">
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Sort Code</label>
+                                <input type="text" id="cfg-sort" placeholder="00-00-00" maxlength="8" class="w-full bg-[#161926]/50 border border-white/[0.05] rounded-xl px-4 py-2.5 text-sm focus:border-violet-500 outline-none transition-all font-mono text-white">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="flex justify-end pt-2">
-                    <button onclick="switchTab('generator')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs py-2 px-5 rounded-xl border border-slate-700 transition">
-                        Return to Generator
-                    </button>
                 </div>
             </section>
 
-
-            <!-- PANEL 2: CORE INTERACTIVE INVOICE HUB GENERATOR -->
-            <section id="panel-generator" class="bg-white text-slate-900 rounded-3xl p-5 sm:p-8 shadow-2xl border border-slate-200/80 print-card">
+            <!-- CORE INVOICE GENERATOR VIEWPORT -->
+            <section id="panel-generator" class="bg-[#11131e] text-slate-200 rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/[0.04] print-card">
                 
-                <!-- BRAND WATERMARK LOGO HEADER (Visible on Printing layout) -->
-                <div class="hidden print:flex items-center justify-between border-b-2 border-slate-100 pb-6 mb-8">
+                <!-- PRINT EXPORT BRANDING BAR -->
+                <div class="hidden print:flex items-center justify-between border-b border-slate-200 pb-6 mb-8">
                     <div>
-                        <h2 class="text-2xl font-black tracking-tight text-slate-900">AInvoice</h2>
+                        <h2 class="text-2xl font-display font-black tracking-tight text-slate-900">AInvoice</h2>
                         <p class="text-xs text-slate-500 font-medium">Professional Locum Remittance Statement</p>
                     </div>
                     <div class="text-right">
@@ -122,13 +128,14 @@
                     </div>
                 </div>
 
-                <!-- METADATA GENERATOR CARD MODULE BLOCK -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <!-- Left: Personal Dynamic Form Inputs Display -->
-                    <div class="space-y-3 bg-slate-50/80 border border-slate-100 p-4 rounded-2xl print:bg-transparent print:border-none print:p-0">
-                        <span class="no-print text-[11px] font-bold text-indigo-600 uppercase tracking-widest block">Locum Identity Context</span>
-                        <div class="print:block">
-                            <p id="lbl-name" class="font-bold text-base text-slate-800 block print:hidden">Set Profile In Settings Menu</p>
-                            <p id="lbl-gphc" class="text-xs font-mono text-slate-500 block mt-0.5 print:hidden"></p>
-                            <p id="lbl-address" class="text-xs text-slate-500 whitespace-pre-line mt-1 block print:hidden"></p>
+                <!-- METADATA INFORMATION BAR -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border-b border-white/[0.04] pb-6">
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold text-violet-400 uppercase tracking-widest block font-display print:text-slate-400">Locum Statement Origin</span>
+                        <div>
+                            <p id="lbl-name" class="font-display font-bold text-base text-white block print:text-slate-800">Set Profile In Settings</p>
+                            <p id="lbl-gphc" class="text-xs font-mono text-slate-400 block mt-0.5 print:text-slate-600"></p>
+                            <p id="lbl-address" class="text-xs text-slate-400 whitespace-pre-line mt-2 block print:text-slate-600"></p>
                         </div>
+                    </div>
+
