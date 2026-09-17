@@ -2,137 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMK Invoicing</title>
-    <!-- Tailwind CSS for polished layouts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AInvoice - Premium Locum Invoicing Hub</title>
+    <!-- Tailwind CSS Engine -->
     <script src="https://tailwindcss.com"></script>
     <style>
+        /* Premium custom scrollbar styling for slick layout scroll controls */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(241, 245, 249, 1); }
+        ::-webkit-scrollbar-thumb { background: rgba(203, 213, 225, 1); border-radius: 9999px; }
+        
         @media print { 
             .no-print { display: none !important; } 
-            body { background: white !important; color: black !important; padding: 0 !important; }
-            .print-border { border: none !important; box-shadow: none !important; }
+            body { background: white !important; color: #0f172a !important; padding: 0 !important; }
+            .print-card { box-shadow: none !important; border: none !important; background: transparent !important; padding: 0 !important; }
+            .print-clean-input { border: none !important; background: transparent !important; padding-left: 0 !important; padding-right: 0 !important; width: 100% !important; }
         }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen p-3 md:p-8 text-gray-800">
+<body class="bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-950 min-h-screen text-slate-100 font-sans selection:bg-indigo-500/30 antialiased pb-12">
 
-    <div class="max-w-3xl mx-auto bg-white shadow-sm rounded-xl p-4 md:p-8 border border-gray-200 print-border">
+    <!-- Premium Dashboard Wrapper Shell Layout -->
+    <div id="appContainer" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         
-        <!-- App Control Header (Hidden when printing/saving PDF) -->
-        <div class="no-print flex justify-between items-center border-b pb-4 mb-6">
-            <h1 class="font-bold text-lg text-slate-800">📋 MMK Invoicing</h1>
-            <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm py-2 px-4 rounded-lg shadow-sm active:scale-95 transition-all">
-                Print / Save PDF
-            </button>
-        </div>
-
-        <!-- Metadata & Profile Form Area -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="space-y-2">
-                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">Your Details</span>
-                <input type="text" id="name" placeholder="Your Full Name" class="w-full font-semibold text-gray-800 border-b border-gray-200 focus:border-blue-500 outline-none pb-1 bg-transparent">
-                <input type="text" id="gphc" placeholder="GPhC Registration Number" class="w-full text-sm text-gray-600 border-b border-gray-200 focus:border-blue-500 outline-none pb-1 bg-transparent">
-                <textarea id="address" placeholder="Your Address & Contact Info" rows="2" class="w-full text-sm text-gray-600 border-b border-gray-200 focus:border-blue-500 outline-none resize-none bg-transparent"></textarea>
-            </div>
-            <div class="space-y-2 md:text-right flex flex-col justify-between">
-                <div>
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Invoice Meta</span>
-                    <div class="flex justify-between md:justify-end gap-2 text-sm">
-                        <span class="text-gray-400">Inv #:</span>
-                        <input type="text" id="invNum" placeholder="INV-001" class="w-24 md:text-right font-mono border-b border-gray-200 outline-none bg-transparent">
-                    </div>
-                    <div class="flex justify-between md:justify-end gap-2 text-sm mt-1">
-                        <span class="text-gray-400">Date:</span>
-                        <input type="date" id="invDate" class="w-32 md:text-right border-b border-gray-200 outline-none bg-transparent text-gray-600">
-                    </div>
+        <!-- Header Landing Bar Module -->
+        <header class="no-print flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 bg-slate-900/60 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 shadow-xl">
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <span class="font-black text-xl tracking-tighter text-white">A</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- Pharmacy Client Information -->
-        <div class="mb-6 bg-slate-50 p-4 rounded-xl border border-gray-100">
-            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-2">Bill To (Pharmacy Company)</span>
-            <input type="text" id="client" placeholder="Company Name / Branch Code (e.g. Boots 1234)" class="w-full bg-transparent font-medium text-gray-800 border-b border-gray-200 focus:border-blue-500 outline-none pb-1 mb-2">
-            <input type="text" id="clientAddr" placeholder="Pharmacy Site Address" class="w-full bg-transparent text-sm text-gray-600 border-b border-gray-200 focus:border-blue-500 outline-none pb-1">
-        </div>
-
-        <!-- Shift Items Dynamic Entry Grid -->
-        <div class="mb-4">
-            <div class="grid grid-cols-12 gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider pb-2 border-b border-gray-200">
-                <span class="col-span-5">Shift Date & Details</span>
-                <span class="col-span-2 text-right">Hours</span>
-                <span class="col-span-2 text-right">Rate (£)</span>
-                <span class="col-span-1 text-right">Exp</span>
-                <span class="col-span-2 text-right">Total</span>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">AInvoice</h1>
+                    <p class="text-xs text-slate-400 font-medium tracking-wide">Intelligent Pharmacy Locum Hub</p>
+                </div>
             </div>
             
-            <div id="rows" class="space-y-3 mt-3">
-                <!-- Starting Base Row Template -->
-                <div class="grid grid-cols-12 gap-2 border-b border-gray-100 pb-2 items-center">
-                    <input type="text" placeholder="e.g. 15th May - Day Shift" class="col-span-5 text-sm font-medium border-b border-transparent hover:border-gray-200 focus:border-blue-500 outline-none bg-transparent">
-                    <input type="number" placeholder="0" step="0.25" oninput="calc()" class="col-span-2 text-right hrs text-sm border-b border-transparent hover:border-gray-200 focus:border-blue-500 outline-none bg-transparent">
-                    <input type="number" placeholder="0" step="0.50" oninput="calc()" class="col-span-2 text-right rate text-sm border-b border-transparent hover:border-gray-200 focus:border-blue-500 outline-none bg-transparent">
-                    <input type="number" placeholder="0" step="0.01" oninput="calc()" class="col-span-1 text-right exp text-sm border-b border-transparent hover:border-gray-200 focus:border-blue-500 outline-none bg-transparent">
-                    <span class="col-span-2 text-right font-semibold text-sm total text-gray-700">£0.00</span>
+            <!-- Dashboard Quick Menus Segment Toggle Buttons -->
+            <nav class="flex items-center bg-slate-950/60 p-1.5 rounded-xl border border-slate-800/60">
+                <button onclick="switchTab('generator')" id="tab-generator" class="px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 bg-indigo-600 text-white shadow-md">
+                    ⚡ Fast Invoice
+                </button>
+                <button onclick="switchTab('profile')" id="tab-profile" class="px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 text-slate-400 hover:text-slate-200">
+                    ⚙️ Settings & Bank
+                </button>
+            </nav>
+
+            <button onclick="window.print()" class="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold text-xs tracking-wider uppercase py-3 px-6 rounded-xl shadow-lg shadow-indigo-500/10 active:scale-[0.98] transition-all">
+                Export Secure PDF
+            </button>
+        </header>
+
+        <!-- MAIN INTERACTIVE APP PANELS -->
+        <main class="grid grid-cols-1 gap-6">
+
+            <!-- PANEL 1: PROFILE MANAGEMENT & CONFIG SETTINGS HUB -->
+            <section id="panel-profile" class="no-print hidden bg-slate-900/40 border border-slate-800/60 rounded-3xl p-6 shadow-2xl backdrop-blur-sm space-y-6">
+                <div>
+                    <h2 class="text-lg font-bold text-white mb-1">⚙️ Locum Setup & Configuration</h2>
+                    <p class="text-xs text-slate-400">Your configuration profiles are saved instantly in local storage.</p>
                 </div>
-            </div>
-        </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Locum Information Block -->
+                    <div class="bg-slate-950/40 border border-slate-800/40 p-5 rounded-2xl space-y-4">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-400">Professional Identity</h3>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Your Full Name</label>
+                            <input type="text" id="cfg-name" placeholder="John Doe MRPharmS" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">GPhC Number</label>
+                            <input type="text" id="cfg-gphc" placeholder="e.g. 2012345" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all font-mono">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Your Business Address</label>
+                            <textarea id="cfg-address" rows="2" placeholder="Street Address, City, Postcode" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2 text-sm focus:border-indigo-500 outline-none transition-all resize-none"></textarea>
+                        </div>
+                    </div>
 
-        <!-- Add Extra Dynamic Rows Line Toggle -->
-        <button onclick="addRow()" class="no-print text-sm font-semibold text-blue-600 hover:text-blue-800 transition mb-6 flex items-center gap-1">
-            ➕ Add Another Shift
-        </button>
+                    <!-- Financial & Remittance Remit -->
+                    <div class="bg-slate-950/40 border border-slate-800/40 p-5 rounded-2xl space-y-4">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-purple-400">Bank Remittance Accounts</h3>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Bank Name</label>
+                            <input type="text" id="cfg-bank" placeholder="e.g. HSBC Bank UK" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Account Number</label>
+                                <input type="text" id="cfg-acc" placeholder="8 digits" maxlength="8" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all font-mono">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Sort Code</label>
+                                <input type="text" id="cfg-sort" placeholder="00-00-00" maxlength="8" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500 outline-none transition-all font-mono">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-end pt-2">
+                    <button onclick="switchTab('generator')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs py-2 px-5 rounded-xl border border-slate-700 transition">
+                        Return to Generator
+                    </button>
+                </div>
+            </section>
 
-        <!-- Remittance Bank Data & Live Summary Target Box -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-200">
-            <div class="space-y-2 text-sm">
-                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Bank Remittance</span>
-                <div class="flex items-center gap-2"><span class="w-20 text-xs text-gray-400 font-medium">Bank:</span><input type="text" id="bank" placeholder="e.g. Barclays" class="flex-1 border-b border-transparent hover:border-gray-200 outline-none bg-transparent text-gray-700"></div>
-                <div class="flex items-center gap-2"><span class="w-20 text-xs text-gray-400 font-medium">Acc No:</span><input type="text" id="acc" placeholder="12345678" class="flex-1 font-mono border-b border-transparent hover:border-gray-200 outline-none bg-transparent text-gray-700"></div>
-                <div class="flex items-center gap-2"><span class="w-20 text-xs text-gray-400 font-medium">Sort Code:</span><input type="text" id="sort" placeholder="00-00-00" class="flex-1 font-mono border-b border-transparent hover:border-gray-200 outline-none bg-transparent text-gray-700"></div>
-            </div>
-            <div class="flex justify-between items-center md:justify-end md:gap-4 self-end">
-                <span class="text-gray-500 font-medium text-sm">Total Amount Due:</span>
-                <span id="grand" class="text-2xl font-bold text-blue-600">£0.00</span>
-            </div>
-        </div>
 
-    </div>
+            <!-- PANEL 2: CORE INTERACTIVE INVOICE HUB GENERATOR -->
+            <section id="panel-generator" class="bg-white text-slate-900 rounded-3xl p-5 sm:p-8 shadow-2xl border border-slate-200/80 print-card">
+                
+                <!-- BRAND WATERMARK LOGO HEADER (Visible on Printing layout) -->
+                <div class="hidden print:flex items-center justify-between border-b-2 border-slate-100 pb-6 mb-8">
+                    <div>
+                        <h2 class="text-2xl font-black tracking-tight text-slate-900">AInvoice</h2>
+                        <p class="text-xs text-slate-500 font-medium">Professional Locum Remittance Statement</p>
+                    </div>
+                    <div class="text-right">
+                        <h3 id="print-lbl-name" class="font-bold text-base text-slate-800"></h3>
+                        <p id="print-lbl-gphc" class="text-xs font-mono text-slate-500"></p>
+                    </div>
+                </div>
 
-    <!-- Background Logic Mechanics Script Frame -->
-    <script>
-        // Set standard baseline auto current calendar execution date 
-        document.getElementById('invDate').value = new Date().toISOString().split('T')[0];
-
-        // Dynamic multi row appender sequence trigger
-        function addRow() {
-            const container = document.getElementById('rows');
-            const div = document.createElement('div');
-            div.className = "grid grid-cols-12 gap-2 border-b border-gray-100 pb-2 items-center";
-            div.innerHTML = `
-                <input type="text" placeholder="Shift Date/Description" class="col-span-5 text-sm font-medium border-b border-transparent hover:border-gray-200 focus:border-blue-500 outline-none bg-transparent">
-                <input type="number" placeholder="0" step="0.25" oninput="calc()" class="col-span-2 text-right hrs text-sm border-b border-transparent hover:border-gray-200 focus:border-blue-500 outline-none bg-transparent">
-                <input type="number" placeholder="0" step="0.50" oninput="calc()" class="col-span-2 text-right rate text-sm border-b border-transparent hover:border-gray-200 focus:border-blue-500 outline-none bg-transparent">
-                <input type="number" placeholder="0" step="0.01" oninput="calc()" class="col-span-1 text-right exp text-sm border-b border-transparent hover:border-gray-200 focus:border-blue-500 outline-none bg-transparent">
-                <span class="col-span-2 text-right font-semibold text-sm total text-gray-700">£0.00</span>
-            `;
-            container.appendChild(div);
-        }
-
-        // Mathematical dynamic calculator sequence tracking loop
-        function calc() {
-            let grand = 0;
-            document.querySelectorAll('#rows > div').forEach(row => {
-                const hrs = parseFloat(row.querySelector('.hrs').value) || 0;
-                const rate = parseFloat(row.querySelector('.rate').value) || 0;
-                const exp = parseFloat(row.querySelector('.exp').value) || 0;
-                const lineTotal = (hrs * rate) + exp;
-                row.querySelector('.total').innerText = '£' + lineTotal.toFixed(2);
-                grand += lineTotal;
-            });
-            document.getElementById('grand').innerText = '£' + grand.toFixed(2);
-        }
-
-        // Automatic LocalStorage sync core mechanics loop 
-        const inputs = ['name', 'gphc', 'address', 'bank', 'acc', 'sort'];
-        inputs.forEach(id => {
+                <!-- METADATA GENERATOR CARD MODULE BLOCK -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Left: Personal Dynamic Form Inputs Display -->
+                    <div class="space-y-3 bg-slate-50/80 border border-slate-100 p-4 rounded-2xl print:bg-transparent print:border-none print:p-0">
+                        <span class="no-print text-[11px] font-bold text-indigo-600 uppercase tracking-widest block">Locum Identity Context</span>
+                        <div class="print:block">
+                            <p id="lbl-name" class="font-bold text-base text-slate-800 block print:hidden">Set Profile In Settings Menu</p>
+                            <p id="lbl-gphc" class="text-xs font-mono text-slate-500 block mt-0.5 print:hidden"></p>
+                            <p id="lbl-address" class="text-xs text-slate-500 whitespace-pre-line mt-1 block print:hidden"></p>
+                        </div>
